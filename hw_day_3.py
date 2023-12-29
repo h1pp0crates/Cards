@@ -37,3 +37,35 @@ class Author:
             and self.last_name == other.last_name
             and self.year_of_birth == other.year_of_birth
         )
+
+    def __hash__(self):
+        return hash((self.first_name, self.last_name, self.year_of_birth))
+
+
+class Book:
+    def __init__(
+        self,
+        name: str,
+        language: str,
+        authors: list[Author],
+        genres: list[Genre],
+        year: int,
+        isbn: str,
+        description: Optional[str] = None,
+    ):
+        self.name = name
+        self.language = language
+        self.authors = authors
+        self.genres = genres
+        self.year = year
+        self.isbn = isbn
+        self.description = description
+
+    def __repr__(self) -> str:
+        return f"Book({self.authors}, {self.name}, {self.language}, {self.description})"
+
+    def __str__(self) -> str:
+        return f"name{self.name},language {self.language}, authors {self.authors}, genres {self.genres}, year {self.year}, isbn {self.isbn}, description {self.description} "
+
+    def __eq__(self, other: "Book") -> bool:
+        return set(self.authors) == set(other.authors) and self.name == other.name
